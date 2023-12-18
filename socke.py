@@ -18,7 +18,12 @@ class _socket:
         msg.decode("utf-8")
         return msg
 
-    def send_request(self, ip, port, msg):
-        self.sock.connect((ip, port))
-        self.sock.send(msg.encode("utf-8")[:1024])
-        self.sock.close()
+    def send_request(self, ip, port, msg) -> bool:
+        try:
+            self.sock.connect((ip, port))
+            self.sock.send(msg.encode("utf-8")[:1024])
+            self.sock.close()
+            return True
+        except Exception as e:
+            print(f"Error sending message: {e}")
+            return False

@@ -11,7 +11,12 @@ class Request:
         self.payload  = payload
         self.datetime = datetime
         self.accept   = False
+        self.received = False
 
+    def __str__(self):
+        return f"Request(origin={self.origin}, addr={self.addr}, payload={self.payload}, datetime={self.datetime}, accept={self.accept}, received={self.received})"
+
+        
 class Algo:
     def __init__(self):
         self.others: list[str]           = []
@@ -45,7 +50,8 @@ class Algo:
             payload=payload,
             datetime=datetime.now())
         socke = _socket()
-        socke.send_request(other, self.ipport, payload)
+        request.received = socke.send_request(other, int(self.ipport), payload)
+        return request
         # return socket(request)
 
     def multicast_keep_alive(self):
@@ -70,6 +76,12 @@ class Algo:
     def get_acceptance(self) -> bool:
         return self.__send_multicast(self, "return_acceptance")
 
-algo = Algo()
-algo.add_others(["172.31.182.123"])
-algo.send_request("172.31.182.123", "Weak minded")
+async def main():
+    algo = Algo()
+    algo.add_others(["172.31.182.123"])
+    request = await algo.send_request("172.31.182.123", "Weak minded")
+    print(request)
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
