@@ -3,12 +3,14 @@ from datetime import datetime
 from threading import Thread
 from time import sleep
 
+
 class Request:
     def __init__(self, origin: str, addr: str, payload: str, datetime: datetime):
         self.origin   = origin
         self.addr     = addr
         self.payload  = payload
         self.datetime = datetime
+
 
 class Algo:
     def __init__(self):
@@ -29,7 +31,7 @@ class Algo:
         self.request_list.append(req)
         self.request_list.sort(key=lambda x: x.datetime)
         return self.return_acceptance()
-        
+
     def send_request(self, other, payload):
         # other = ...
         # payload = "request_ressource"
@@ -46,7 +48,7 @@ class Algo:
         while True:
             for i in self.others:
                 response = self.send_request(i, "keep_alive")
-                if response != True:
+                if response is not True:
                     self.not_responding(i)
             sleep(10)
 
@@ -70,6 +72,7 @@ class Algo:
             if not response:
                 allowed = False
         return allowed
+
 
 algo = Algo()
 algo.add_others(["",])
