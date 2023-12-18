@@ -5,20 +5,21 @@ from time import sleep
 
 
 class Request:
-    def __init__(self, origin: str, addr: str, payload: str, datetime: datetime):
-        self.origin   = origin
-        self.addr     = addr
-        self.payload  = payload
+    def __init__(self, origin: str, addr: str, payload: str,
+                 datetime: datetime):
+        self.origin = origin
+        self.addr = addr
+        self.payload = payload
         self.datetime = datetime
 
 
 class Algo:
     def __init__(self):
-        self.others: list[str]           = []
+        self.others: list[str] = []
         self.request_list: list[Request] = []
-        self.duing                       = False
-        self.ipaddr                      = "127.0.0.1"
-        self.keep_alive_thread           = Thread(target=self.multicast_keep_alive)
+        self.duing = False
+        self.ipaddr = "127.0.0.1"
+        self.keep_alive_thread = Thread(target=self.multicast_keep_alive)
 
     def send_multicast(self, payload):
         for i in self.others:
