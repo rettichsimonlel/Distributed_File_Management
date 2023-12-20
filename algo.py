@@ -1,4 +1,5 @@
 from socke import _socket
+from filemanagement import FileHandler
 
 from datetime import datetime
 from threading import Thread
@@ -79,8 +80,10 @@ class Algo:
 async def main():
     algo = Algo()
     algo.add_others(["172.31.182.123"])
-    request = await algo.send_request("172.31.182.123", "Weak minded")
-    print(request)
+    request0 = await algo.send_request(algo.others[0], "Weak minded")
+    request1 = await algo.send_request(algo.others[0], "Tost 2")
+    print(request0)
+    print(request1)
 
 if __name__ == "__main__":
     import asyncio

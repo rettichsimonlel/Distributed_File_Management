@@ -49,13 +49,15 @@ class FileHandler():
         handler1.write_file(lines_file1)
         print(f"Delta update performed. {file1} has been updated with additional content from {file2}.")
 
-file_handler = FileHandler('static/file1.txt')
-file_handler.display_content()
 
-file_handler.add_content("New line added")
-file_handler.display_content()
+if __name__ == "__main__":
+    file_handler = FileHandler('static/file1.txt')
+    file_handler.display_content()
 
-file_handler.delete_content_by_line_number(2)
-file_handler.display_content()
+    file_handler.add_content("New line added")
+    file_handler.display_content()
 
-FileHandler.delta_update('static/file1.txt', 'static/file2.txt')
+    file_handler.delete_content_by_line_number(2)
+    file_handler.display_content()
+
+    FileHandler.delta_update('static/file1.txt', 'static/file2.txt')
