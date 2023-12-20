@@ -21,6 +21,14 @@ class _socket:
         msg = msg.decode("utf-8")
         return msg
 
+    def receive_file(self, filename):
+        with open(filename, 'wb') as file:
+            data = self.connection.recv(1024)
+            while data:
+                file.write(data)
+                data = self.connection.recv(1024)
+        print(f"File {filename} received successfully")
+
     def send_request(self, ip, port, msg) -> bool:
         try:
             send_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
